@@ -187,6 +187,23 @@
         .back-link:hover {
             background: #5a6268;
         }
+        @media (max-width: 600px) {
+            .back-link {
+                padding: 10px 12px;
+                font-size: 1.5em;
+                margin: 8px;
+                width: 36px;
+                height: 36px;
+                text-align: center;
+                background: #6c757d;
+                color: white;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+            .back-link span {
+                display: none;
+            }
+        }
         .online-indicator {
             display: inline-block;
             width: 8px;
@@ -298,12 +315,14 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="back-link" style="position: absolute; top: 18px; left: 12px; z-index: 10;">
+        ←<span> Retour à l'accueil</span>
+    </a>
     <div class="container">
         <div class="header">
             <h1>⚓ Pirates des Caraïbes - Forum de Discussion</h1>
             <p>Partagez votre passion pour l'univers de Jack Sparrow !</p>
         </div>
-        
         <div class="stats">
             <div class="stat">
                 <div class="stat-number">156</div>
@@ -318,7 +337,6 @@
                 <div class="stat-label">Membres</div>
             </div>
         </div>
-        
         <div class="messages-container" id="messagesContainer">
             <div class="message">
                 <div class="message-header">
@@ -409,13 +427,13 @@
         
         <div class="input-area">
             <div class="input-group">
-                <input type="text" class="message-input" id="messageInput" placeholder="Partagez votre avis sur Pirates des Caraïbes...">
+                <input type="text" class="message-input" id="messageInput" placeholder="Partagez votre avis">
                 <button class="send-btn" onclick="sendMessage()">Envoyer ⚓</button>
             </div>
         </div>
     </div>
     
-    <a href="index.html" class="back-link">← Retour à l'accueil</a>
+    <!-- Le lien de retour est maintenant en haut à gauche -->
     
     <script>
         function sendMessage() {
