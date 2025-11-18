@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>MovieChat - Accueil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+        }
+        .movies-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .movie-card {
+            background: white;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .movie-card h3 {
+            margin: 0;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+        }
+        .movie-card p {
+            color: #666;
+            line-height: 1.6;
+            padding: 0 20px;
+            margin: 15px 0;
+        }
+        .movie-card p:last-child {
+            padding-bottom: 20px;
+        }
+        .chat-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: #e50914;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .chat-link:hover {
+            background-color: #b20710;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenue sur MovieChat</h1>
+    <p style="text-align: center; color: white;">Quel film préférez-vous?</p>
+    
+    <div class="movies-container">
+        <div class="movie-card" onclick="selectMovie('Inception')">
+            <h3>🎬 Inception</h3>
+            <p><strong>Réalisateur :</strong> Christopher Nolan</p>
+            <p>Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets doit accomplir l'impossible : implanter une idée dans l'esprit de quelqu'un.</p>
+        </div>
+        
+        <div class="movie-card" onclick="selectMovie('The Matrix')">
+            <h3>🎬 The Matrix</h3>
+            <p><strong>Réalisateur :</strong> Wachowski</p>
+            <p>Un programmeur découvre que la réalité qu'il connaît est en fait une simulation créée par des machines intelligentes.</p>
+        </div>
+        
+        <div class="movie-card" onclick="selectMovie('Interstellar')">
+            <h3>🎬 Interstellar</h3>
+            <p><strong>Réalisateur :</strong> Christopher Nolan</p>
+            <p>Une équipe d'explorateurs voyage à travers un trou de ver dans l'espace pour assurer la survie de l'humanité.</p>
+        </div>
+        
+        <div class="movie-card" onclick="selectMovie('Pirates des Caraïbes')">
+            <h3>🎬 Pirates des Caraïbes</h3>
+            <p><strong>Réalisateur :</strong> Gore Verbinski</p>
+            <p>Le capitaine Jack Sparrow s'associe avec un forgeron pour sauver la fille du gouverneur des mains de pirates maudits.</p>
+        </div>
+    </div>
+    
+    <script>
+        function selectMovie(movieName) {
+            if (movieName === 'Pirates des Caraïbes') {
+                window.location.href = 'chat.html';
+            } else {
+                alert('Vous avez choisi : ' + movieName + '\n\nTous les forums sont pleins pour le moment !');
+                // Vous pouvez ajouter ici du code pour démarrer le film ou rediriger vers une page de lecture
+            }
+        }
+    </script>
+</body>
+</html>

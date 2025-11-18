@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>VideoChat - Discussion Pirates des Caraïbes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #8B4513;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .messages-container {
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .message {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #8B4513;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .username {
+            font-weight: bold;
+            color: #8B4513;
+        }
+        .timestamp {
+            color: #999;
+            font-size: 0.85em;
+        }
+        .message-content {
+            color: #333;
+            line-height: 1.6;
+        }
+        .reactions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .reaction {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 15px;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .reaction:hover {
+            background: #8B4513;
+            color: white;
+            transform: scale(1.1);
+        }
+        .input-area {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 2px solid #dee2e6;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 25px;
+            font-size: 1em;
+            outline: none;
+        }
+        .message-input:focus {
+            border-color: #8B4513;
+        }
+        .send-btn {
+            padding: 12px 30px;
+            background: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .send-btn:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+        }
+        .back-link {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            background: #5a6268;
+        }
+        .online-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #28a745;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚓ Pirates des Caraïbes - Forum de Discussion</h1>
+            <p>Partagez votre passion pour l'univers de Jack Sparrow !</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">156</div>
+                <div class="stat-label">Messages</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">42</div>
+                <div class="stat-label"><span class="online-indicator"></span>En ligne</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">1.2k</div>
+                <div class="stat-label">Membres</div>
+            </div>
+        </div>
+        
+        <div class="messages-container" id="messagesContainer">
+            <div class="message">
+                <div class="message-header">
+                    <span class="username">🏴‍☠️ CaptainJack_Fan</span>
+                    <span class="timestamp">Il y a 2 min</span>
+                </div>
+                <div class="message-content">
+                    La scène où Jack Sparrow arrive à Port Royal sur son bateau qui coule est légendaire ! C'est un des meilleurs moments du cinéma pour moi 😂
+                </div>
+                <div class="reactions">
+                    <span class="reaction">❤️ 23</span>
+                    <span class="reaction">😂 15</span>
+                    <span class="reaction">🏴‍☠️ 8</span>
+                </div>
+            </div>
+            
+            <div class="message">
+                <div class="message-header">
+                    <span class="username">⚓ Elizabeth_Swann</span>
+                    <span class="timestamp">Il y a 5 min</span>
+                </div>
+                <div class="message-content">
+                    Totalement d'accord ! Et la musique de Hans Zimmer qui accompagne... "He's a Pirate" reste iconique. Je l'ai encore en tête !
+                </div>
+                <div class="reactions">
+                    <span class="reaction">❤️ 31</span>
+                    <span class="reaction">🎵  12</span>
+                </div>
+            </div>
+            
+            <div class="message">
+                <div class="message-header">
+                    <span class="username">🗡️ WillTurner_92</span>
+                    <span class="timestamp">Il y a 8 min</span>
+                </div>
+                <div class="message-content">
+                    Le combat d'épée entre Jack et Will dans la forge est une chorégraphie parfaite. On sent vraiment la chimie entre Johnny Depp et Orlando Bloom !
+                </div>
+                <div class="reactions">
+                    <span class="reaction">⚔️ 19</span>
+                    <span class="reaction">👏 27</span>
+                </div>
+            </div>
+            
+            <div class="message">
+                <div class="message-header">
+                    <span class="username">💀 Barbossa_Lives</span>
+                    <span class="timestamp">Il y a 12 min</span>
+                </div>
+                <div class="message-content">
+                    "Vous feriez mieux de croire aux histoires de fantômes, Miss Turner... vous êtes dans l'une d'elles !" 
+                    Geoffrey Rush est absolument brillant en Barbossa 💀
+                </div>
+                <div class="reactions">
+                    <span class="reaction">🔥 45</span>
+                    <span class="reaction">💀 22</span>
+                </div>
+            </div>
+            
+            <div class="message">
+                <div class="message-header">
+                    <span class="username">🌊 PearlLover</span>
+                    <span class="timestamp">Il y a 15 min</span>
+                </div>
+                <div class="message-content">
+                    Le Black Pearl est probablement le bateau le plus cool de l'histoire du cinéma. J'adorerais voir une vraie réplique navigable !
+                </div>
+                <div class="reactions">
+                    <span class="reaction">⚓ 38</span>
+                    <span class="reaction">❤️ 29</span>
+                </div>
+            </div>
+            
+            <div class="message">
+                <div class="message-header">
+                    <span class="username">🎬 MovieBuff_2025</span>
+                    <span class="timestamp">Il y a 18 min</span>
+                </div>
+                <div class="message-content">
+                    Fun fact : Johnny Depp s'est inspiré de Keith Richards des Rolling Stones pour créer le personnage de Jack Sparrow. D'ailleurs Keith apparaît dans le 3ème film !
+                </div>
+                <div class="reactions">
+                    <span class="reaction">🤯 52</span>
+                    <span class="reaction">👍 41</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <div class="input-group">
+                <input type="text" class="message-input" id="messageInput" placeholder="Partagez votre avis sur Pirates des Caraïbes...">
+                <button class="send-btn" onclick="sendMessage()">Envoyer ⚓</button>
+            </div>
+        </div>
+    </div>
+    
+    <a href="index.html" class="back-link">← Retour à l'accueil</a>
+    
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const messagesContainer = document.getElementById('messagesContainer');
+                const now = new Date();
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <span class="username">🎭 Vous</span>
+                        <span class="timestamp">À l'instant</span>
+                    </div>
+                    <div class="message-content">
+                        ${message}
+                    </div>
+                    <div class="reactions">
+                        <span class="reaction">❤️ 0</span>
+                        <span class="reaction">👍 0</span>
+                    </div>
+                `;
+                
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                input.value = '';
+            }
+        }
+        
+        // Permettre l'envoi avec la touche Entrée
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Simuler l'arrivée de nouveaux messages
+        setInterval(() => {
+            const messages = [
+                { user: '🏴‍☠️ Davy_Jones_Fan', content: 'Qui se souvient de la scène du kraken ? Terrifiant et fascinant à la fois !', reactions: '🐙 12' },
+                { user: '⚔️ SwordMaster', content: 'La trilogie originale reste imbattable. Les autres films ne sont pas au même niveau...', reactions: '💯 8' },
+                { user: '🎵 MusicLover', content: '*joue He\'s a Pirate au piano* 🎹', reactions: '🎵 18' }
+            ];
+            
+            if (Math.random() > 0.7) {
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                const messagesContainer = document.getElementById('messagesContainer');
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <span class="username">${randomMessage.user}</span>
+                        <span class="timestamp">À l'instant</span>
+                    </div>
+                    <div class="message-content">
+                        ${randomMessage.content}
+                    </div>
+                    <div class="reactions">
+                        <span class="reaction">${randomMessage.reactions}</span>
+                    </div>
+                `;
+                
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }, 15000); // Nouveau message toutes les 15 secondes (parfois)
+    </script>
+</body>
+</html>
