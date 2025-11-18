@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code MovieChat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .qr-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px 20px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-bottom: 18px;
+            color: #1e3c72;
+        }
+        .qr-label {
+            margin-top: 18px;
+            color: #333;
+            font-size: 1em;
+        }
+        a {
+            color: #1e3c72;
+            margin-top: 10px;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-container">
+        <h1>Scannez pour accéder à MovieChat</h1>
+        <div id="qrcode"></div>
+        <div class="qr-label">https://moviechatnancy.netlify.app/</div>
+        <a href="index.html">Retour à l'accueil</a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        new QRCode(document.getElementById("qrcode"), {
+            text: "https://moviechatnancy.netlify.app/",
+            width: 180,
+            height: 180,
+            colorDark : "#1e3c72",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    </script>
+</body>
+</html>
