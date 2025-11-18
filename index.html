@@ -149,11 +149,11 @@
     
     <div class="movies-container">
         <div class="movie-card" onclick="selectMovie('Musique')">
-            <h3>🎵 Musique</h3>
+            <h3>🎵 Musique &#9940;</h3>
             <p>Quel est votre musique préférée ?</p>
         </div>
         <div class="movie-card" onclick="selectMovie('Gastronomie')">
-            <h3>🍽️ Gastronomie</h3>
+            <h3>🍽️ Gastronomie &#9940;</h3>
             <p>Quelle est votre meilleure adresse à Nancy ?</p>
         </div>
         <div class="movie-card" onclick="selectMovie('Cinéma')">
@@ -161,7 +161,7 @@
             <p>Fais deviner ton film préféré avec une citation ou une réplique.</p>
         </div>
         <div class="movie-card" onclick="selectMovie('Lecture')">
-            <h3>📚 Lecture</h3>
+            <h3>📚 Lecture &#9940;</h3>
             <p>Quel est le dernier livre que vous avez lu ?</p>
         </div>
     </div>
@@ -171,7 +171,7 @@
             if (theme === 'Cinéma') {
                 window.location.href = 'cinema.html';
             } else {
-                alert('Vous avez choisi : ' + theme + '\n\nTous les forums sont pleins pour le moment !');
+                alert('⛔ Le forum ' + theme + ' est plein. Réessayez plus tard !');
                 // Vous pouvez ajouter ici du code pour démarrer le film ou rediriger vers une page de lecture
             }
         }

@@ -122,22 +122,26 @@
             transition: all 0.2s;
             touch-action: manipulation;
         }
-        .reaction:active {
-            background: #8B4513;
-            color: white;
-            transform: scale(0.95);
-        }
-        .reaction:hover {
-            background: #8B4513;
-            color: white;
-            transform: scale(1.05);
-        }
-        .input-area {
-            padding: 15px;
-            background: #f8f9fa;
-            border-top: 2px solid #dee2e6;
-            flex-shrink: 0;
-        }
+            .breadcrumb-link {
+                color: #FA811B;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 2px 6px;
+                border-radius: 4px;
+                transition: background 0.2s, color 0.2s;
+            }
+            .breadcrumb-link:visited {
+                color: #FA811B;
+            }
+            .breadcrumb-link:hover {
+                background: #ffe2c6;
+                color: #000;
+            }
+            .breadcrumb-current {
+                color: #fff;
+                font-weight: bold;
+                padding: 2px 6px;
+            }
         .input-group {
             display: flex;
             gap: 8px;
@@ -315,9 +319,13 @@
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link" style="position: absolute; top: 18px; left: 12px; z-index: 10;">
-        ←<span> Retour à l'accueil</span>
-    </a>
+        <nav class="breadcrumb" style="position: absolute; top: 18px; left: 12px; z-index: 10;">
+            <a href="index.html" class="breadcrumb-link">Accueil</a>
+            <span style="color:#bbb; margin: 0 8px;">/</span>
+            <a href="cinema.html" class="breadcrumb-link">Cinéma</a>
+            <span style="color:#bbb; margin: 0 8px;">/</span>
+            <span class="breadcrumb-current">Science-Fiction</span>
+        </nav>
     <div class="container">
         <div class="header">
             <h1>Sans Filtre - Forum Science-Fiction</h1>
