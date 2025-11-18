@@ -24,6 +24,11 @@
             font-size: 1.8em;
             margin-bottom: 10px;
         }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 10px;
+        }
         .subtitle {
             text-align: center;
             color: white;
@@ -86,6 +91,26 @@
         .chat-link:hover {
             background-color: #b20710;
         }
+        .breadcrumb-link {
+                color: #FA811B;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 2px 6px;
+                border-radius: 4px;
+                transition: background 0.2s, color 0.2s;
+            }
+            .breadcrumb-link:visited {
+                color: #FA811B;
+            }
+            .breadcrumb-link:hover {
+                background: #ffe2c6;
+                color: #000;
+            }
+            .breadcrumb-current {
+                color: #fff;
+                font-weight: bold;
+                padding: 2px 6px;
+            }
         
         /* Media queries pour mobile */
         @media (max-width: 600px) {
@@ -145,6 +170,10 @@
     </style>
 </head>
 <body>
+    <nav class="breadcrumb" style="position: absolute; top: 18px; left: 12px; z-index: 10;">
+            <span class="breadcrumb-current">Accueil</span>
+        </nav>
+<div class="container">      
     <h1>Sans Filtre</h1>
     
     <div class="movies-container">
@@ -152,19 +181,20 @@
             <h3>🎵 Musique &#9940;</h3>
             <p>Quel est votre musique préférée ?</p>
         </div>
-        <div class="movie-card" onclick="selectMovie('Gastronomie')">
-            <h3>🍽️ Gastronomie &#9940;</h3>
-            <p>Quelle est votre meilleure adresse à Nancy ?</p>
-        </div>
         <div class="movie-card" onclick="selectMovie('Cinéma')">
             <h3>🎬 Cinéma</h3>
             <p>Fais deviner ton film préféré avec une citation ou une réplique.</p>
+        </div>
+        <div class="movie-card" onclick="selectMovie('Gastronomie')">
+            <h3>🍽️ Gastronomie &#9940;</h3>
+            <p>Quelle est votre meilleure adresse à Nancy ?</p>
         </div>
         <div class="movie-card" onclick="selectMovie('Lecture')">
             <h3>📚 Lecture &#9940;</h3>
             <p>Quel est le dernier livre que vous avez lu ?</p>
         </div>
     </div>
+    </div>  
     
     <script>
         function selectMovie(theme) {
