@@ -56,7 +56,7 @@
         .movie-card h3 {
             margin: 0;
             padding: 12px 15px;
-            background: linear-gradient(135deg, #1B916B 0%, #1B916B 100%);
+            background: linear-gradient(135deg, #27ae60 0%, #218c4a 100%);
             color: white;
             font-size: 1.1em;
         }
@@ -150,28 +150,28 @@
     <div class="movies-container">
         <div class="movie-card" onclick="selectMovie('Musique')">
             <h3>🎵 Musique</h3>
-            <p>Partagez et découvrez vos morceaux, artistes et playlists préférés.</p>
+            <p>Quel est votre musique préférée ?</p>
         </div>
         <div class="movie-card" onclick="selectMovie('Gastronomie')">
             <h3>🍽️ Gastronomie</h3>
-            <p>Recettes, restaurants, astuces culinaires et plaisirs gourmands à discuter.</p>
+            <p>Quelle est votre meilleure adresse à Nancy ?</p>
         </div>
         <div class="movie-card" onclick="selectMovie('Cinéma')">
             <h3>🎬 Cinéma</h3>
-            <p>Films, séries, acteurs et tout l'univers du 7ème art à partager.</p>
+            <p>Fais deviner ton film préféré avec une citation ou une réplique.</p>
         </div>
         <div class="movie-card" onclick="selectMovie('Lecture')">
             <h3>📚 Lecture</h3>
-            <p>Livres, BD, mangas, coups de cœur et recommandations littéraires.</p>
+            <p>Quel est le dernier livre que vous avez lu ?</p>
         </div>
     </div>
     
     <script>
-        function selectMovie(movieName) {
-            if (movieName === 'Cinéma') {
-                window.location.href = 'chat.html';
+        function selectMovie(theme) {
+            if (theme === 'Cinéma') {
+                window.location.href = 'cinema.html';
             } else {
-                alert('Vous avez choisi : ' + movieName + '\n\nTous les forums sont pleins pour le moment !');
+                alert('Vous avez choisi : ' + theme + '\n\nTous les forums sont pleins pour le moment !');
                 // Vous pouvez ajouter ici du code pour démarrer le film ou rediriger vers une page de lecture
             }
         }
