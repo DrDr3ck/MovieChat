@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieChat - Accueil</title>
+    <title>Sans Filtre - Accueil</title>
     <style>
         * {
             margin: 0;
@@ -146,37 +146,29 @@
 </head>
 <body>
     <h1>Bienvenue sur MovieChat</h1>
-    <p class="subtitle">Quel film préférez-vous?</p>
     
     <div class="movies-container">
-        <div class="movie-card" onclick="selectMovie('Inception')">
-            <h3>🎬 Inception</h3>
-            <p><strong>Réalisateur :</strong> Christopher Nolan</p>
-            <p>Un voleur qui s'infiltre dans les rêves des autres pour voler leurs secrets doit accomplir l'impossible : implanter une idée dans l'esprit de quelqu'un.</p>
+        <div class="movie-card" onclick="selectMovie('Musique')">
+            <h3>🎵 Musique</h3>
+            <p>Partagez et découvrez vos morceaux, artistes et playlists préférés.</p>
         </div>
-        
-        <div class="movie-card" onclick="selectMovie('The Matrix')">
-            <h3>🎬 The Matrix</h3>
-            <p><strong>Réalisateur :</strong> Wachowski</p>
-            <p>Un programmeur découvre que la réalité qu'il connaît est en fait une simulation créée par des machines intelligentes.</p>
+        <div class="movie-card" onclick="selectMovie('Gastronomie')">
+            <h3>🍽️ Gastronomie</h3>
+            <p>Recettes, restaurants, astuces culinaires et plaisirs gourmands à discuter.</p>
         </div>
-        
-        <div class="movie-card" onclick="selectMovie('Interstellar')">
-            <h3>🎬 Interstellar</h3>
-            <p><strong>Réalisateur :</strong> Christopher Nolan</p>
-            <p>Une équipe d'explorateurs voyage à travers un trou de ver dans l'espace pour assurer la survie de l'humanité.</p>
+        <div class="movie-card" onclick="selectMovie('Cinéma')">
+            <h3>🎬 Cinéma</h3>
+            <p>Films, séries, acteurs et tout l'univers du 7ème art à partager.</p>
         </div>
-        
-        <div class="movie-card" onclick="selectMovie('Pirates des Caraïbes')">
-            <h3>🎬 Pirates des Caraïbes</h3>
-            <p><strong>Réalisateur :</strong> Gore Verbinski</p>
-            <p>Le capitaine Jack Sparrow s'associe avec un forgeron pour sauver la fille du gouverneur des mains de pirates maudits.</p>
+        <div class="movie-card" onclick="selectMovie('Lecture')">
+            <h3>📚 Lecture</h3>
+            <p>Livres, BD, mangas, coups de cœur et recommandations littéraires.</p>
         </div>
     </div>
     
     <script>
         function selectMovie(movieName) {
-            if (movieName === 'Pirates des Caraïbes') {
+            if (movieName === 'Cinéma') {
                 window.location.href = 'chat.html';
             } else {
                 alert('Vous avez choisi : ' + movieName + '\n\nTous les forums sont pleins pour le moment !');

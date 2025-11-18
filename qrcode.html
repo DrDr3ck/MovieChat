@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>QR Code MovieChat</title>
+    <title>QR Code Sans Filtre</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
@@ -42,15 +42,15 @@
 </head>
 <body>
     <div class="qr-container">
-        <h1>Scannez pour accéder à MovieChat</h1>
+    <h1>Scannez pour accéder à Sans Filtre</h1>
         <div id="qrcode"></div>
-        <div class="qr-label">https://moviechatnancy.netlify.app/</div>
+        <div class="qr-label">https://sans-filtre.netlify.app/</div>
         <a href="index.html">Retour à l'accueil</a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
         new QRCode(document.getElementById("qrcode"), {
-            text: "https://moviechatnancy.netlify.app/",
+            text: "https://sans-filtre.netlify.app/",
             width: 180,
             height: 180,
             colorDark : "#1e3c72",
