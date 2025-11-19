@@ -186,7 +186,7 @@
             <p>Fais deviner ton film préféré avec une citation ou une réplique.</p>
         </div>
         <div class="movie-card" onclick="selectMovie('Gastronomie')">
-            <h3>🍽️ Gastronomie &#9940;</h3>
+            <h3>🍽️ Gastronomie</h3>
             <p>Quelle est votre meilleure adresse à Nancy ?</p>
         </div>
         <div class="movie-card" onclick="selectMovie('Lecture')">
@@ -200,6 +200,8 @@
         function selectMovie(theme) {
             if (theme === 'Cinéma') {
                 window.location.href = 'cinema.html';
+            } else if (theme === 'Gastronomie') {
+                window.location.href = 'nourriture.html';
             } else {
                 alert('⛔ Le forum ' + theme + ' est plein. Réessayez plus tard !');
                 // Vous pouvez ajouter ici du code pour démarrer le film ou rediriger vers une page de lecture
