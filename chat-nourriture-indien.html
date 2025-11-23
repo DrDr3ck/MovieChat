@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sans Filtre - Forum Gastronomie Indien</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #474747;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 30px);
+        }
+        .header {
+            background: linear-gradient(135deg, #27ae60 0%, #218c4a 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+        }
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: #f8f9fa;
+            padding: 12px;
+            border-bottom: 2px solid #dee2e6;
+            flex-shrink: 0;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #8B4513;
+        }
+        .stat-label {
+            font-size: 0.8em;
+            color: #666;
+        }
+        .messages-container {
+            padding: 15px;
+            overflow-y: auto;
+            flex: 1;
+            -webkit-overflow-scrolling: touch;
+        }
+        .message {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #8B4513;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .username {
+            font-weight: bold;
+            color: #8B4513;
+            font-size: 0.95em;
+        }
+        .timestamp {
+            color: #999;
+            font-size: 0.8em;
+        }
+        .message-content {
+            color: #333;
+            line-height: 1.5;
+            font-size: 0.9em;
+        }
+        .reactions {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .reaction {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 15px;
+            padding: 4px 8px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+            .breadcrumb-link {
+                color: #FA811B;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 2px 6px;
+                border-radius: 4px;
+                transition: background 0.2s, color 0.2s;
+            }
+            .breadcrumb-link:visited {
+                color: #FA811B;
+            }
+            .breadcrumb-link:hover {
+                background: #ffe2c6;
+                color: #000;
+            }
+            .breadcrumb-current {
+                color: #fff;
+                font-weight: bold;
+                padding: 2px 6px;
+            }
+            .input-area {
+                padding: 10px;
+            }
+        .input-group {
+            display: flex;
+            gap: 8px;
+        }
+        .message-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 20px;
+            font-size: 0.95em;
+            outline: none;
+        }
+        .message-input:focus {
+            border-color: #8B4513;
+        }
+        .send-btn {
+            padding: 10px 20px;
+            background: #FA811B;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+            white-space: nowrap;
+            touch-action: manipulation;
+        }
+        .send-btn:active {
+            background: #d86f13;
+            transform: scale(0.98);
+        }
+        .send-btn:hover {
+            background: #d86f13;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 15px;
+            padding: 10px 15px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        .back-link:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 600px) {
+            .back-link {
+                padding: 10px 12px;
+                font-size: 1.5em;
+                margin: 8px;
+                width: 36px;
+                height: 36px;
+                text-align: center;
+                background: #6c757d;
+                color: white;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+            .back-link span {
+                display: none;
+            }
+        }
+        .online-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Media queries pour mobile */
+        @media (max-width: 600px) {
+            body {
+                padding: 8px;
+            }
+            .container {
+                border-radius: 10px;
+                max-height: calc(100vh - 16px);
+            }
+            .header {
+                padding: 15px;
+            }
+            .header h1 {
+                font-size: 1.2em;
+                margin-bottom: 5px;
+            }
+            .header p {
+                font-size: 0.85em;
+            }
+            .stats {
+                padding: 10px 5px;
+            }
+            .stat-number {
+                font-size: 1em;
+            }
+            .stat-label {
+                font-size: 0.7em;
+            }
+            .messages-container {
+                padding: 10px;
+            }
+            .message {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+            .username {
+                font-size: 0.9em;
+            }
+            .timestamp {
+                font-size: 0.75em;
+            }
+            .message-content {
+                font-size: 0.85em;
+                line-height: 1.4;
+            }
+            .reactions {
+                gap: 6px;
+            }
+            .reaction {
+                padding: 3px 6px;
+                font-size: 0.75em;
+            }
+            .input-area {
+                padding: 10px;
+            }
+            .input-group {
+                gap: 6px;
+            }
+            .message-input {
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+            .send-btn {
+                padding: 8px 15px;
+                font-size: 0.85em;
+            }
+            .back-link {
+                margin: 10px;
+                padding: 8px 12px;
+                font-size: 0.85em;
+            }
+        }
+        
+        /* Pour les très petits écrans */
+        @media (max-width: 400px) {
+            .header h1 {
+                font-size: 1.1em;
+            }
+            .header p {
+                font-size: 0.8em;
+            }
+            .stat {
+                flex: 1;
+            }
+            .stat-number {
+                font-size: 0.9em;
+            }
+            .stat-label {
+                font-size: 0.65em;
+            }
+            .send-btn {
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+        <nav class="breadcrumb" style="position: absolute; top: 18px; left: 12px; z-index: 10;">
+            <a href="index.html" class="breadcrumb-link">Accueil</a>
+            <span style="color:#bbb; margin: 0 8px;">/</span>
+            <a href="nourriture.html" class="breadcrumb-link">Gastronomie</a>
+            <span style="color:#bbb; margin: 0 8px;">/</span>
+            <span class="breadcrumb-current">Indien</span>
+        </nav>
+    <div class="container">
+        <div class="header">
+            <h1>Sans Filtre - Forum Gastronomie Indien</h1>
+            <p>Explorez les saveurs, partagez vos recettes et discutez des délices culinaires d'Inde !</p>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="messageCount">0</div>
+                <div class="stat-label">Messages</div>
+            </div>
+        </div>
+        <div class="messages-container" id="messagesContainer">
+            <!-- Les messages seront insérés ici dynamiquement -->
+        </div>
+        
+        <div class="input-area">
+            <div class="input-group">
+                <input type="text" class="message-input" id="messageInput" placeholder="Partagez votre avis">
+                <button class="send-btn" onclick="sendMessage()">Envoyer</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Le lien de retour est maintenant en haut à gauche -->
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy,where  } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+                apiKey: "AIzaSyAAfF1OVsQsYOPRsnxE5EOQM389KAECtiI",
+                authDomain: "sans-fitre-54.firebaseapp.com",
+                projectId: "sans-fitre-54",
+                storageBucket: "sans-fitre-54.firebasestorage.app",
+                messagingSenderId: "184987567426",
+                appId: "1:184987567426:web:5b3d37eef0da16e5bab4db"
+            };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        function getDate(message) {
+            // if message is less than an hour, show "Il y a X min"
+            const now = new Date();
+            const messageDate = new Date(message.createdAt);
+            const diffInMs = now - messageDate;
+            const diffInMinutes = Math.floor(diffInMs / 60000);
+
+            if (diffInMinutes < 1) {
+                return `A l'instant`;
+            }
+
+            if (diffInMinutes < 60) {
+                return `Il y a ${diffInMinutes} min`;
+            }
+
+            // if message is less than a day, show "Il y a X h"
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            if (diffInHours < 24) {
+                return `Il y a ${diffInHours} h`;
+            }
+
+            // if message is from yesterday, show "Hier à HH:MM"
+            const diffInDays = Math.floor(diffInHours / 24);
+            if (diffInDays === 1) {
+                return `Hier à ${messageDate.getHours().toString().padStart(2, '0')}:${messageDate.getMinutes().toString().padStart(2, '0')}`;
+            }
+
+            //if message as less than one month, show "Il y a X jours"
+            if (diffInDays < 30) {
+                return `Il y a ${diffInDays} jours`;
+            }
+
+            // if message is older, show the full date
+            return messageDate.toLocaleString();
+        }
+
+        const q = query(
+            collection(db, "messages"),
+            orderBy("createdAt"),
+            // Filtrer par section "indien" et theme "gastronomie"
+            where("section", "==", "indien"),
+            where("theme", "==", "gastronomie")
+        );
+        onSnapshot(q, (snapshot) => {
+            const messages = snapshot.docs.map(doc => doc.data());
+            console.log("Messages récupérés :", messages);
+            document.getElementById('messageCount').innerText = messages.length;
+            const messagesContainer = document.getElementById('messagesContainer');
+            messagesContainer.innerHTML = '';
+            messages.forEach(message => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <span class="username">${message.user}</span>
+                        <span class="timestamp">${getDate(message)}</span>
+                    </div>
+                    <div class="message-content">
+                        ${message.text}
+                    </div>
+                    <div class="reactions">
+                        <span class="reaction">❤️ 0</span>
+                        <span class="reaction">👍 0</span>
+                    </div>
+                `;
+                messagesContainer.appendChild(messageDiv);
+            });
+        });
+
+        // db et addDoc sont maintenant disponibles pour les fonctions existantes
+
+        const forbiddenWords = ["insulte", "connard", "salope", "putain", "merde", "con", "idiot", "crétin", "imbécile", "débile", "insulter", "abruti", "taré", "enculé", "pd", "pute", "foutre", "chier", "bite", "couille", "cul", "salaud", "connasse", "batard", "enfoiré", "ordure", "pourriture", "raclure", "fumier", "salopard", "dégueulasse", "merdeux", "chieur", "nul", "naze", "pourri", "crevard", "mongol", "attardé", "gogol"];
+
+        function censorMessage(message) {
+            const normalizedMessage = message.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const normalizedWords = forbiddenWords.map(word => 
+                word.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            );
+            
+            const regex = new RegExp(`\\b(${normalizedWords.join('|')})\\b`, 'gi');
+            
+            let result = normalizedMessage.replace(regex, (match) => {
+                if (match.length <= 2) return '*'.repeat(match.length);
+                return match[0] + '*'.repeat(match.length - 2) + match[match.length - 1];
+            });
+            
+            // Rétablir les accents pour les mots non censurés
+            let index = 0;
+            result = result.split('').map(char => {
+                if (char === '*') return char;
+                while (index < message.length && message.normalize('NFD').replace(/[\u0300-\u036f]/g, '')[index] !== char) {
+                    index++;
+                }
+                return message[index++] || char;
+            }).join('');
+            
+            return result;
+        }
+
+        // fonction pour creer un user au format 09-ABC
+        function createUser() {
+            const number = String(Math.floor(Math.random() * 100)).padStart(2, '0');
+            const letters = Array.from({length: 3}, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join('');
+            return `${number}-${letters}`;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            let message = input.value.trim();
+
+            if (message) {
+                message = censorMessage(message);
+
+                const messagesContainer = document.getElementById('messagesContainer');
+                const now = new Date();
+
+                await addDoc(collection(db, "messages"), {
+                    text: message,
+                    user: createUser(),
+                    createdAt: Date.now(),
+                    section: "indien",
+                    theme: "gastronomie"
+                });
+
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+                input.value = '';
+            }
+        }
+
+        // Permettre l'envoi avec la touche Entrée
+        document.getElementById('messageInput').addEventListener('keypress', async function(e) {
+            if (e.key === 'Enter') {
+                await sendMessage();
+            }
+        });
+
+        // Expose sendMessage to the global scope
+        window.sendMessage = sendMessage;
+    </script>
+</body>
+</html>
